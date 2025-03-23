@@ -26,7 +26,8 @@
     "react-sweetalert2": "^0.6.0",
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.1.0"
+    "swiper": "^11.1.0",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

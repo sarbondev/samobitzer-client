@@ -35,7 +35,7 @@ export const ServiceModule = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          BackendUrlToConnect + "api/services/delete/" + id,
+          BackendUrlToConnect + "/services/delete/" + id,
           config
         );
         setServices(services.filter((service) => service._id !== id));
@@ -64,12 +64,9 @@ export const ServiceModule = () => {
           {t("headings.services.mainTitle")}
         </h1>
         {isLogin && (
-          <Link
-            to="/add-service"
-            className="inline-block mb-8 bg-red-700 text-white py-2 px-5 rounded-md hover:bg-red-800 transition-colors duration-300"
-          >
+          <button className="inline-block bg-red-800 text-white py-2 px-5 rounded-md hover:bg-red-800/80 transition-colors duration-300">
             {t("headings.services.add")}
-          </Link>
+          </button>
         )}
         {serPending ? (
           <Pending />
@@ -86,7 +83,7 @@ export const ServiceModule = () => {
             ))}
           </div>
         ) : (
-          <div className="mt-10 rounded-xl h-[30vh] flex items-center justify-center bg-white shadow-md">
+          <div className="mt-4 rounded-xl h-[30vh] flex items-center justify-center bg-white shadow-md">
             <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
           </div>
         )}

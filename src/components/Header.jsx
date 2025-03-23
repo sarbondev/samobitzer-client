@@ -118,7 +118,7 @@ export const Header = () => {
                 onClick={() => setIsOpen(!isOpen)}
               >
                 {languages.map((lang) =>
-                  lang.code === selectedLanguage ? (
+                  lang.code === selectedLanguage.slice(0, 2) ? (
                     <div
                       key={lang.code}
                       className="flex items-center justify-between w-full"
