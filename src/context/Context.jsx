@@ -8,13 +8,9 @@ export const Context = ({ children }) => {
   };
   // const BackendUrlToConnect = "https://backend.samobitzer.uz/";
   const BackendUrlToConnect = "http://localhost:5000/api";
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
   const [pageIsPending, setPageIsPending] = useState(false);
-  const [projects, setProjects] = useState([]);
   const [services, setServices] = useState([]);
   const [team, setTeam] = useState([]);
-  const [proPending, setProPending] = useState(false);
   const [serPending, setSerPending] = useState(false);
   const [teamPending, setTeamPending] = useState(false);
   const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
@@ -26,12 +22,8 @@ export const Context = ({ children }) => {
       value={{
         pageIsPending,
         setPageIsPending,
-        projects,
-        setProjects,
         services,
         setServices,
-        proPending,
-        setProPending,
         serPending,
         setSerPending,
         teamPending,
@@ -40,10 +32,6 @@ export const Context = ({ children }) => {
         setIsLogin,
         team,
         setTeam,
-        prevScrollPos,
-        setPrevScrollPos,
-        visible,
-        setVisible,
         admin,
         setAdmin,
         config,
