@@ -1,0 +1,89 @@
+{
+  "nav_links": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "services": "Services"
+  },
+  "headings": {
+    "aboutus": {
+      "mainTitle": "About us",
+      "h1": "In One Word",
+      "p": "A specialized production company operating in the construction market. The high quality of goods offered by the company is achieved through the use of modern production technologies, as well as materials and raw materials. well-known foreign suppliers. SAMO offers a modern and comprehensive sandwich panel cladding system.      ",
+      "b": "Read More"
+    },
+    "hero": {
+      "vrf": "Chiller ventilation",
+      "freezer": "Refrigeration chamber",
+      "sandwich": "Sandwich Panels",
+      "vitrina": "Showcase refrigerator",
+      "other": "Other services"
+    },
+    "services": {
+      "mainTitle": "Services",
+      "waranty": "3 years waranty",
+      "add": "Add New Service +"
+    },
+    "projects": {
+      "mainTitle": "Projects",
+      "add": "Add New Project +"
+    },
+    "ourteam": {
+      "mainTitle": "Team",
+      "add": "Add New Teamate +"
+    }
+  },
+  "actions": {
+    "add": "Delete",
+    "edit": "Edit"
+  },
+  "questions": {
+    "delete": "Are you sure?",
+    "success": "Successfully Deleted!",
+    "answer": "Yes!"
+  },
+  "admin": {
+    "edit": "EDIT ADMIN",
+    "delete": "DELETE ADMIN",
+    "add": "ADD NEW ADMIN",
+    "logout": "LOGOUT",
+    "questions": {
+      "delete": "Are you sure?",
+      "success": "Successfully Deleted!",
+      "answer": "Yes!"
+    },
+    "questions2": {
+      "delete": "Are you sure?",
+      "success": "Successfully!",
+      "answer": "Yes!"
+    }
+  },
+  "rights": {
+    "title": "Samo Copyright ©2024 All rights reserved",
+    "made": "WEBSITE created by UITC Company"
+  },
+  "filters": {
+    "all": "All",
+    "vrfsystem": "VRF system",
+    "camera": "showcase refrigerator",
+    "stellaj": "showcase refrigerator and rack",
+    "sandwich": "Sandwich Panels",
+    "other": "Others"
+  },
+  "features": {
+    "mainTitle": "Our Features",
+    "reliability": "Reability",
+    "innovation": "Innovation",
+    "qualification": "Qualitification",
+    "range": "Range",
+    "quality": "Quality",
+    "deadline": "Deadline",
+    "reliabilityBody": "Our company has more than 20 years of experience in the market, which indicates a high level of reliability and professionalism",
+    "innovationBody": "We constantly introduce the latest technologies into production, which allows us to offer the most modern equipment.",
+    "qualificationBody": "Our team consists of qualified specialists who can provide professional advice and assistance.",
+    "rangeBody": "We offer a wide range of HVAC equipment to suit different customer needs.",
+    "qualityBody": "We adhere to international quality standards, which guarantees the high quality of our equipment.",
+    "deadlineBody": "Some items from the assortment are always in stock, and production times for other items are kept to a minimum."
+  },
+  "partners": "Our partners"
+}

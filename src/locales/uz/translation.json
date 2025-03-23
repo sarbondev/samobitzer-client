@@ -1,0 +1,89 @@
+{
+  "nav_links": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "projects": "Loyihalar",
+    "services": "Xizmatlar"
+  },
+  "headings": {
+    "aboutus": {
+      "mainTitle": "Biz haqimizda",
+      "h1": "Bir So'z Bilan Aytganda",
+      "p": "Qurilish bozorida ishlaydigan ixtisoslashgan ishlab chiqarish kompaniyasi. Kompaniya tomonidan taklif etilayotgan tovarlarning yuqori sifatiga zamonaviy ishlab chiqarish texnologiyalari, shuningdek, materiallar va xom ashyolardan foydalanish orqali erishiladi. taniqli xorijiy etkazib beruvchilar. SAMO taklif qiladi zamonaviy va keng qamrovli sendvich panel qoplama tizimi.",
+      "b": "Batafsil"
+    },
+    "hero": {
+      "vrf": "Chiller ventilyatsiya",
+      "freezer": "Muzlatgich kamerasi",
+      "sandwich": "Sendvich panellar",
+      "vitrina": "Vitrina muzlatgichlar",
+      "other": "Boshqa xizmatlar"
+    },
+    "services": {
+      "mainTitle": "Xizmatlar",
+      "waranty": "3 yilga kafolat",
+      "add": "Yangi Xizmat Qo'shish +"
+    },
+    "projects": {
+      "mainTitle": "Loyihalar",
+      "add": "Yangi Loyiha Qo'shish +"
+    },
+    "ourteam": {
+      "mainTitle": "Xodimlar",
+      "add": "Yangi Xodim Qo'shish +"
+    }
+  },
+  "actions": {
+    "add": "O'chirish",
+    "edit": "Tahrirlash"
+  },
+  "questions": {
+    "delete": "Olib Tashlaymi?",
+    "success": "Olib Tashlandi!",
+    "answer": "Ha!"
+  },
+  "admin": {
+    "edit": "ADMINNI TAHRIRLASH",
+    "delete": "ADMINNI O'CHIRIB TASHLASH",
+    "add": "YANGI ADMIN QO'SHISH",
+    "logout": "TARK ETISH",
+    "questions": {
+      "delete": "Olib Tashlaymi?",
+      "success": "Olib Tashlandi!",
+      "answer": "Ha!"
+    },
+    "questions2": {
+      "delete": "Tark Etmoqchimisiz?",
+      "success": "Tark Etildi!",
+      "answer": "Ha!"
+    }
+  },
+  "rights": {
+    "title": "Samo Mualliflik huquqi ©2024 Barcha huquqlar himoyalangan",
+    "made": "WEBSAYT UITC Companiyasi tomonidan yaratilgan"
+  },
+  "filters": {
+    "all": "Barchasi",
+    "vrfsystem": "VRF sistema",
+    "camera": "Camera Muzlatgich",
+    "stellaj": "Vitrina Muzlatgich va Stellaj",
+    "sandwich": "Sendvich Panellar",
+    "other": "Boshqa Xizmatlar"
+  },
+  "features": {
+    "mainTitle": "Bizning afzalliklarimiz",
+    "reliability": "Ishonch",
+    "innovation": "Innovatsiya",
+    "qualification": "Malaka",
+    "range": "Assortiment",
+    "quality": "Sifat",
+    "deadline": "Muddat",
+    "reliabilityBody": "Kompaniyamiz bozorda 10 yildan ortiq tajribaga ega, bu yuqori darajadagi ishonchlilik va professionallikdan dalolat beradi.",
+    "innovationBody": "Biz doimiy ravishda ishlab chiqarishga eng yangi texnologiyalarni joriy qilamiz, bu bizga eng zamonaviy uskunalarni taklif qilish imkonini beradi.",
+    "qualificationBody": "Bizning jamoamiz professional maslahat va yordam bera oladigan malakali mutaxassislardan iborat.",
+    "rangeBody": "Biz mijozlarning turli ehtiyojlarini qondirish uchun HVAC uskunalarining keng assortimentini taklif etamiz.",
+    "qualityBody": "Biz xalqaro sifat standartlariga amal qilamiz, bu esa uskunamizning yuqori sifatini kafolatlaydi.",
+    "deadlineBody": "Assortimentdagi ba'zi mahsulotlar doimo zaxirada bo'ladi va boshqa mahsulotlar uchun ishlab chiqarish vaqtlari minimal darajada saqlanadi."
+  },
+  "partners": "Bizning hamkorlarimiz"
+}
