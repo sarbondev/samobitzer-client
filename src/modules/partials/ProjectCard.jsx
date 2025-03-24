@@ -5,12 +5,11 @@ import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
-export const ProjectCard = ({ item }) => {
+export const ProjectCard = ({ item, mutate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
-  const { projects, isLogin, setProjects, config, BackendUrlToConnect } =
-    useContext(ContextData);
-  const UrlToDeleteProject = BackendUrlToConnect + "api/projects/delete/";
+  const { isLogin, config, BackendUrlToConnect } = useContext(ContextData);
+  const UrlToDeleteProject = BackendUrlToConnect + "/projects/delete/";
 
   const deleteProject = async (id) => {
     try {
@@ -25,7 +24,7 @@ export const ProjectCard = ({ item }) => {
 
       if (result.isConfirmed) {
         await axios.delete(UrlToDeleteProject + id, config);
-        setProjects(projects.filter((project) => project._id !== id));
+        mutate((state) => state.data.filter((prod) => prod._id !== id));
         Swal.fire({
           title: t("questions.success"),
           icon: "success",

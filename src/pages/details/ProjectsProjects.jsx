@@ -6,7 +6,7 @@ import { ContextData } from "../../context/Context";
 export const ProjectsDetails = () => {
   const { BackendUrlToConnect } = useContext(ContextData);
   const { id } = useParams();
-  const [url, setUrl] = useState(BackendUrlToConnect + "api/projects");
+  const [url, setUrl] = useState(BackendUrlToConnect + "/projects");
   const [project, setProject] = useState({});
   async function getData() {
     try {
