@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import { X } from "@phosphor-icons/react";
 import axios from "axios";
 
-export default function AddProductModal({ setIsModalActive, mutate }) {
+export default function AddTeamateModal({ setIsModalActive, mutate }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    category: "",
-    images: [],
+    name: "",
+    experience: "",
+    image: "",
   });
 
   const [errors, setErrors] = useState({});
   const [isUploading, setIsUploading] = useState(false);
-  const [previews, setPreviews] = useState([]);
+  const [preview, setPreview] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,54 +20,47 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
   };
 
   const handleFileChange = (e) => {
-    if (!e.target.files || e.target.files.length === 0) return;
+    if (!e.target.files) return;
 
-    const filesArray = Array.from(e.target.files);
-
-    const newPreviews = filesArray.map((file) => URL.createObjectURL(file));
+    const file = e.target.files[0];
 
     setFormData((prevData) => ({
       ...prevData,
-      images: [...prevData.images, ...filesArray],
+      image: file,
     }));
 
-    setPreviews((prev) => [...prev, ...newPreviews]);
+    setPreview(URL.createObjectURL(file));
 
     e.target.value = "";
   };
 
-  const removePhoto = (index) => {
+  const removePhoto = () => {
     setFormData((prevData) => ({
       ...prevData,
-      images: prevData.images.filter((_, i) => i !== index),
+      image: "",
     }));
 
-    setPreviews((prev) => prev.filter((_, i) => i !== index));
+    setPreview(null);
 
-    setErrors((prev) => ({ ...prev, images: "" }));
+    setErrors((prev) => ({ ...prev, image: "" }));
   };
 
   const validateForm = () => {
     let isValid = true;
     const newErrors = {};
 
-    if (!formData.title.trim()) {
-      newErrors.title = "Название блога обязательно";
+    if (!formData.name.trim()) {
+      newErrors.name = "Название блога обязательно";
       isValid = false;
     }
 
-    if (!formData.description.trim()) {
-      newErrors.description = "Описание обязательно";
+    if (!formData.experience.trim()) {
+      newErrors.experience = "Описание обязательно";
       isValid = false;
     }
 
-    if (!formData.category.trim()) {
-      newErrors.category = "Категория обязательно";
-      isValid = false;
-    }
-
-    if (formData.images.length === 0) {
-      newErrors.images = "Добавьте хотя бы одну фотографию";
+    if (!formData.image) {
+      newErrors.image = "Добавьте хотя бы одну фотографию";
       isValid = false;
     }
 
@@ -83,16 +75,12 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
     try {
       setIsUploading(true);
       const formDataToSend = new FormData();
-      formDataToSend.append("title", formData.title);
-      formDataToSend.append("description", formData.description);
-      formDataToSend.append("category", formData.category);
-
-      formData.images.forEach((image) => {
-        formDataToSend.append(`images`, image);
-      });
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("experience", formData.experience);
+      formDataToSend.append(`image`, formData.image);
 
       await axios.post(
-        "http://localhost:5000/api/projects/create",
+        "http://localhost:5000/api/team/create",
         formDataToSend,
         {
           headers: {
@@ -117,12 +105,6 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
     }
   };
 
-  React.useEffect(() => {
-    return () => {
-      previews.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [previews]);
-
   return (
     <div
       className="w-full h-screen fixed left-0 top-0 bg-black bg-opacity-75 backdrop-blur-md flex justify-end modal-overlay z-50"
@@ -139,16 +121,14 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
           </p>
           <input
             type="text"
-            name="title"
+            name="name"
             className={`outline-none border p-2 rounded-md ${
-              errors.title ? "border-red-600" : "border-black"
+              errors.name ? "border-red-600" : "border-black"
             }`}
-            value={formData.title}
+            value={formData.name}
             onChange={handleInputChange}
           />
-          {errors.title && (
-            <p className="text-red-600 text-sm">{errors.title}</p>
-          )}
+          {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
         </label>
         <label className="flex flex-col gap-2 text-[14px]">
           <p>
@@ -157,38 +137,15 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
           </p>
           <input
             type="text"
-            name="description"
+            name="experience"
             className={`outline-none border p-2 rounded-md ${
-              errors.description ? "border-red-600" : "border-black"
+              errors.experience ? "border-red-600" : "border-black"
             }`}
-            value={formData.description}
+            value={formData.experience}
             onChange={handleInputChange}
           />
-          {errors.description && (
-            <p className="text-red-600 text-sm">{errors.description}</p>
-          )}
-        </label>
-        <label className="flex flex-col gap-2 text-[14px]">
-          <p>
-            Введите описание
-            <span className="text-red-600">*</span>
-          </p>
-          <select
-            name="category"
-            className={`outline-none border p-2 rounded-md ${
-              errors.category ? "border-red-600" : "border-black"
-            }`}
-            value={formData.category}
-            onChange={handleInputChange}
-          >
-            <option value="vrfsystem">vrfsystem</option>
-            <option value="camera">camera</option>
-            <option value="stellaj">stellaj</option>
-            <option value="sandwich">sandwich</option>
-            <option value="other">other</option>
-          </select>
-          {errors.category && (
-            <p className="text-red-600 text-sm">{errors.category}</p>
+          {errors.experience && (
+            <p className="text-red-600 text-sm">{errors.experience}</p>
           )}
         </label>
         <div className="space-y-2">
@@ -197,25 +154,23 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
             <span className="text-red-600">*</span>
           </label>
 
-          {previews.length > 0 && (
-            <div className="grid grid-cols-3 gap-2 mb-4">
-              {previews.map((preview, index) => (
-                <div key={index} className="relative group">
-                  <img
-                    src={preview || "/placeholder.svg"}
-                    alt={`Preview ${index + 1}`}
-                    className="w-full h-24 object-cover rounded-md"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removePhoto(index)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                    aria-label="Remove photo"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-              ))}
+          {preview && (
+            <div className="mb-4">
+              <div className="relative group">
+                <img
+                  src={preview || "/placeholder.svg"}
+                  alt={`Preview`}
+                  className="w-full object-cover rounded-md"
+                />
+                <button
+                  type="button"
+                  onClick={removePhoto}
+                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label="Remove photo"
+                >
+                  <X size={14} />
+                </button>
+              </div>
             </div>
           )}
 
@@ -223,7 +178,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
             <label
               htmlFor="photo"
               className={`flex items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.images ? "border-red-600" : "border-gray-600"
+                errors.image ? "border-red-600" : "border-gray-600"
               }`}
             >
               <span className="text-sm text-gray-400">
@@ -240,13 +195,8 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
               />
             </label>
           </div>
-          {errors.images && (
-            <p className="text-red-600 text-sm">{errors.images}</p>
-          )}
-          {formData.images.length > 0 && (
-            <p className="text-sm text-gray-500">
-              Выбрано файлов: {formData.images.length}
-            </p>
+          {errors.image && (
+            <p className="text-red-600 text-sm">{errors.image}</p>
           )}
         </div>
 

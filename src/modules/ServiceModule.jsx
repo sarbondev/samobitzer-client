@@ -1,26 +1,20 @@
 import React, { useContext, useState } from "react";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { ContextData } from "../context/Context.jsx";
 import { Link } from "react-router-dom";
-import { UseServicesFetch } from "../hooks/useServiceFetch.jsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Pending } from "../components/Pending.jsx";
 import { useTranslation } from "react-i18next";
+import useSWR from "swr";
+import { fetcher } from "../middlewares/Fetcher.jsx";
+import AddServiceModal from "../components/Add-service-modal.jsx";
 
 export const ServiceModule = () => {
+  const { data, error, isLoading, mutate } = useSWR("/services", fetcher);
+  const [isModalActive, setIsModalActive] = useState(false);
+
   const { t } = useTranslation();
-  const {
-    services,
-    setServices,
-    isLogin,
-    serPending,
-    config,
-    BackendUrlToConnect,
-  } = useContext(ContextData);
-  const [url, setUrl] = useState(BackendUrlToConnect + "/services");
-  UseServicesFetch(url);
+  const { isLogin } = useContext(ContextData);
 
   const deleteService = async (id) => {
     try {
@@ -54,41 +48,55 @@ export const ServiceModule = () => {
   };
 
   return (
-    <section className="px-4 py-20 bg-gray-50">
-      <div className="container mx-auto">
-        <h1
-          className={`text-3xl md:text-5xl font-bold mb-10 text-red-800 text-center ${
-            location.pathname === "/" ? "" : "hidden"
-          }`}
-        >
-          {t("headings.services.mainTitle")}
-        </h1>
-        {isLogin && (
-          <button className="inline-block bg-red-800 text-white py-2 px-5 rounded-md hover:bg-red-800/80 transition-colors duration-300">
-            {t("headings.services.add")}
-          </button>
-        )}
-        {serPending ? (
-          <Pending />
-        ) : services.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((item, index) => (
-              <ServiceCard
-                key={index}
-                item={item}
-                deleteService={deleteService}
-                isLogin={isLogin}
-                t={t}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="mt-4 rounded-xl h-[30vh] flex items-center justify-center bg-white shadow-md">
-            <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
-          </div>
-        )}
-      </div>
-    </section>
+    <>
+      <section className="px-4 py-20 bg-gray-50">
+        <div className="container mx-auto">
+          <h1
+            className={`text-3xl md:text-5xl font-bold mb-10 text-red-800 text-center ${
+              location.pathname === "/" ? "" : "hidden"
+            }`}
+          >
+            {t("headings.services.mainTitle")}
+          </h1>
+          {isLogin && (
+            <button
+              onClick={() => setIsModalActive(true)}
+              className="bg-red-700 text-white font-semibold text-[12px] md:text-sm py-2 px-4 rounded-md"
+            >
+              {t("headings.services.add")}
+            </button>
+          )}
+          {isLoading ? (
+            <Pending />
+          ) : error ? (
+            <div className="mt-3 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
+              <h1 className="text-red-800 font-bold text-3xl">
+                Error loading data
+              </h1>
+            </div>
+          ) : data && data.data && data.data.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5">
+              {data.data.map((item, index) => (
+                <ServiceCard
+                  key={index}
+                  item={item}
+                  deleteService={deleteService}
+                  isLogin={isLogin}
+                  t={t}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="mt-4 rounded-xl h-[30vh] flex items-center justify-center bg-white shadow-md">
+              <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
+            </div>
+          )}
+        </div>
+      </section>
+      {isModalActive && (
+        <AddServiceModal setIsModalActive={setIsModalActive} mutate={mutate} />
+      )}
+    </>
   );
 };
 
@@ -98,28 +106,12 @@ const ServiceCard = ({ item, deleteService, isLogin, t }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
       <div className="relative">
-        <Swiper
-          loop={true}
-          slidesPerView={1}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="h-64"
-        >
-          {item.images.map((image, ind) => (
-            <SwiperSlide key={ind}>
-              <Link to={`/service/${item._id}`} className="block h-full">
-                <img
-                  className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
-                  src={image || "/placeholder.svg"}
-                  alt={item.title}
-                />
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <div className="absolute top-0 left-0 bg-red-800 text-white py-1 px-2 text-sm font-semibold">
+        <img
+          className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+          src={item.image || "/placeholder.svg"}
+          alt={item.title}
+        />
+        <div className="absolute top-1 right-1 bg-green-600 text-white py-1 px-2 text-[10px] font-semibold rounded-lg">
           {t("headings.services.waranty")}
         </div>
       </div>
