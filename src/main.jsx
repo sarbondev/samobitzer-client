@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { Context } from "./context/Context.jsx";
 import AOS from "aos";
+import { configureStore } from "@reduxjs/toolkit";
+import UserSlice from "./toolkit/UserSlicer.jsx";
+import { Provider } from "react-redux";
 import "aos/dist/aos.css";
 import "./index.css";
 import "swiper/css";
@@ -13,8 +15,14 @@ import "swiper/css/effect-coverflow";
 import "./i18next.js";
 AOS.init();
 
+const store = configureStore({
+  reducer: {
+    user: UserSlice,
+  },
+});
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Context>
+  <Provider store={store}>
     <App />
-  </Context>
+  </Provider>
 );

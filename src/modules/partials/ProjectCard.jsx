@@ -1,15 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ContextData } from "../../context/Context";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+import { Axios } from "../../middlewares/Axios";
+import { useSelector } from "react-redux";
 
 export const ProjectCard = ({ item, mutate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
-  const { isLogin, config, BackendUrlToConnect } = useContext(ContextData);
-  const UrlToDeleteProject = BackendUrlToConnect + "/projects/delete/";
+  const { isAuth } = useSelector((state) => state.user);
 
   const deleteProject = async (id) => {
     try {
@@ -23,7 +22,7 @@ export const ProjectCard = ({ item, mutate }) => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(UrlToDeleteProject + id, config);
+        await Axios.delete(`/projects/delete/${id}`);
         mutate((state) => state.data.filter((prod) => prod._id !== id));
         Swal.fire({
           title: t("questions.success"),
@@ -49,7 +48,7 @@ export const ProjectCard = ({ item, mutate }) => {
             alt={item.title}
           />
         </Link>
-        {isLogin && (
+        {isAuth && (
           <div className="absolute top-2 right-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

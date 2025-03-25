@@ -6,10 +6,12 @@ import { useTranslation } from "react-i18next";
 import { fetcher } from "../middlewares/Fetcher";
 import useSWR from "swr";
 import AddProductModal from "../components/Add-product-modal";
+import { useSelector } from "react-redux";
 
 export const ProjectsModule = () => {
   const location = useLocation();
   const { t } = useTranslation();
+  const { isAuth } = useSelector((state) => state.user);
 
   const [pageSize, setPageSize] = useState(6);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -55,6 +57,14 @@ export const ProjectsModule = () => {
             {t("headings.projects.mainTitle")}
           </h1>
           <div className="flex items-center gap-3 flex-wrap">
+            {isAuth && (
+              <button
+                onClick={() => setIsModalActive(true)}
+                className="bg-red-700 text-white font-semibold text-[12px] md:text-sm py-2 px-4 rounded-md"
+              >
+                {t("headings.projects.add")}
+              </button>
+            )}
             {["", "vrfsystem", "camera", "stellaj", "sandwich", "other"].map(
               (category, index) => (
                 <button
@@ -70,12 +80,6 @@ export const ProjectsModule = () => {
                 </button>
               )
             )}
-            <button
-              onClick={() => setIsModalActive(true)}
-              className="bg-red-700 text-white font-semibold text-[12px] md:text-sm py-2 px-4 rounded-md"
-            >
-              {t("headings.projects.add")}
-            </button>
           </div>
           {isLoading ? (
             <Pending />

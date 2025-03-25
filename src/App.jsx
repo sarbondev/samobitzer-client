@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts/RootLayout";
 import { Home } from "./pages/Home";
@@ -7,11 +7,31 @@ import { Login } from "./pages/Login";
 import { About } from "./pages/About";
 import { Projects } from "./pages/Projects";
 import { Service } from "./pages/Service";
-import { ServiceDetails } from "./pages/details/ServiceDetails";
-import { ProjectsDetails } from "./pages/details/ProjectsProjects";
-import { User } from "./pages/User";
+import { ProjectsDetails } from "./pages/ProjectsDetail";
+import { useDispatch } from "react-redux";
+import { setError, setPending, setUser } from "./toolkit/UserSlicer";
+import { Axios } from "./middlewares/Axios";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getMyData() {
+      try {
+        dispatch(setPending());
+        const response = await Axios.get("admin/profile");
+        if (!response.data.message) {
+          dispatch(setUser(response.data));
+        } else {
+          dispatch(setError(response.data.message));
+        }
+      } catch (error) {
+        dispatch(setError(error.response?.data || "Unknown Token"));
+      }
+    }
+    getMyData();
+  }, [dispatch]);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -42,16 +62,8 @@ function App() {
           element: <Service />,
         },
         {
-          path: "service/:id",
-          element: <ServiceDetails />,
-        },
-        {
           path: "projects/:id",
           element: <ProjectsDetails />,
-        },
-        {
-          path: "admin/:id",
-          element: <User />,
         },
       ],
     },

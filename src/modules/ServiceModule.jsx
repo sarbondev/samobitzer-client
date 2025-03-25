@@ -1,20 +1,20 @@
-import React, { useContext, useState } from "react";
-import { ContextData } from "../context/Context.jsx";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { Pending } from "../components/Pending.jsx";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
 import { fetcher } from "../middlewares/Fetcher.jsx";
 import AddServiceModal from "../components/Add-service-modal.jsx";
+import { Axios } from "../middlewares/Axios.jsx";
+import { useSelector } from "react-redux";
 
 export const ServiceModule = () => {
   const { data, error, isLoading, mutate } = useSWR("/services", fetcher);
   const [isModalActive, setIsModalActive] = useState(false);
+  const { isAuth } = useSelector((state) => state.user);
 
   const { t } = useTranslation();
-  const { isLogin } = useContext(ContextData);
 
   const deleteService = async (id) => {
     try {
@@ -28,10 +28,7 @@ export const ServiceModule = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(
-          BackendUrlToConnect + "/services/delete/" + id,
-          config
-        );
+        await Axios.delete(`/services/delete/${id}`);
         setServices(services.filter((service) => service._id !== id));
         Swal.fire({
           title: t("questions.success"),
@@ -58,7 +55,7 @@ export const ServiceModule = () => {
           >
             {t("headings.services.mainTitle")}
           </h1>
-          {isLogin && (
+          {isAuth && (
             <button
               onClick={() => setIsModalActive(true)}
               className="bg-red-700 text-white font-semibold text-[12px] md:text-sm py-2 px-4 rounded-md"
@@ -81,7 +78,7 @@ export const ServiceModule = () => {
                   key={index}
                   item={item}
                   deleteService={deleteService}
-                  isLogin={isLogin}
+                  isAuth={isAuth}
                   t={t}
                 />
               ))}
@@ -100,7 +97,7 @@ export const ServiceModule = () => {
   );
 };
 
-const ServiceCard = ({ item, deleteService, isLogin, t }) => {
+const ServiceCard = ({ item, deleteService, isAuth, t }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -116,7 +113,7 @@ const ServiceCard = ({ item, deleteService, isLogin, t }) => {
         </div>
       </div>
       <div className="p-4 relative">
-        {isLogin && (
+        {isAuth && (
           <div className="absolute top-2 right-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

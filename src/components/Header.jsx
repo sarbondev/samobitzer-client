@@ -1,8 +1,8 @@
 import { List, X } from "@phosphor-icons/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ContextData } from "../context/Context";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
   const { t, i18n } = useTranslation();
@@ -45,7 +45,7 @@ export const Header = () => {
     },
   ];
 
-  const { isLogin, admin } = useContext(ContextData);
+  const { isAuth } = useSelector((state) => state.user);
 
   const [navActive, setNavActive] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -157,15 +157,7 @@ export const Header = () => {
               )}
             </div>
 
-            {isLogin ? (
-              <Link to={`/admin/${admin?._id}`}>
-                <img
-                  className="w-[35px]"
-                  src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                  alt=""
-                />
-              </Link>
-            ) : (
+            {!isAuth && (
               <Link
                 to={`/login`}
                 className={`rounded-lg text-red-700 bg-white font-bold py-2 px-4`}

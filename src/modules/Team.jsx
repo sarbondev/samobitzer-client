@@ -1,21 +1,21 @@
-import React, { useContext, useState } from "react";
-import { ContextData } from "../context/Context";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Pencil, Trash } from "@phosphor-icons/react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { Pending } from "../components/Pending";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
 import { fetcher } from "../middlewares/Fetcher";
 import AddTeamateModal from "../components/Add-teamate-modal";
+import { Axios } from "../middlewares/Axios";
+import { useSelector } from "react-redux";
 
 export const Team = () => {
   const { data, error, isLoading, mutate } = useSWR("/team", fetcher);
   const [isModalActive, setIsModalActive] = useState(false);
+  const { isAuth } = useSelector((state) => state.user);
 
   const { t } = useTranslation();
-  const { isLogin } = useContext(ContextData);
 
   const deleteService = async (id) => {
     try {
@@ -34,7 +34,7 @@ export const Team = () => {
             text: "Ishchi o'chirib tashlandi.",
             icon: "success",
           });
-          axios.delete(BackendUrlToConnect + "api/team/delete/" + id, config);
+          Axios.delete(`/team/delete/${id}`);
           mutate((state) => state.data.filter((member) => member._id !== id));
         }
       });
@@ -49,7 +49,7 @@ export const Team = () => {
           <h1 className="text-3xl md:text-5xl text-center text-red-800 font-bold mb-10">
             {t("headings.ourteam.mainTitle")}
           </h1>
-          {isLogin ? (
+          {isAuth ? (
             <button
               onClick={() => setIsModalActive(true)}
               className="bg-red-700 text-white py-2 px-5 rounded-md"
@@ -74,7 +74,7 @@ export const Team = () => {
                   </figure>
                   <div className="p-4 flex flex-col gap-4 items-center">
                     <h1 className="font-bold">{item.name}</h1>
-                    {isLogin ? (
+                    {isAuth ? (
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => deleteService(item._id)}

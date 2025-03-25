@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useContext } from "react";
-import { ContextData } from "../context/Context";
+import React, { useState } from "react";
+import { Axios } from "../middlewares/Axios";
 
 export const Login = () => {
-  const { isLogin, BackendUrlToConnect } = useContext(ContextData);
-
-  useEffect(() => {
-    if (isLogin) {
-      navigate("/");
-    }
-  }, []);
-
-  const navigate = useNavigate();
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -36,9 +23,7 @@ export const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = (
-        await axios.post(BackendUrlToConnect + "/admin/login", formData)
-      ).data;
+      const response = (await Axios.post("/admin/login", formData)).data;
       if (response.token) {
         localStorage.setItem("samotoken", JSON.stringify(response.token));
         setFormData({ ...formData, email: "", password: "" });
