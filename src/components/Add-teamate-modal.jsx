@@ -81,7 +81,7 @@ export default function AddTeamateModal({ setIsModalActive, mutate }) {
 
       await Axios.post("/team/create", formDataToSend);
 
-      alert("Проект успешно добавлен!");
+      alert("Мастер успешно добавлен!");
       setIsModalActive(false);
       mutate();
     } catch (error) {

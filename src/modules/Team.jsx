@@ -19,25 +19,23 @@ export const Team = () => {
 
   const deleteService = async (id) => {
     try {
-      await Swal.fire({
-        title: "Olib tashlaymi?",
-        text: "so'ng qaytara olmaysiz!",
+      const result = await Swal.fire({
+        title: t("questions.delete"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#07bc0c",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ha, O'chirib Tashlash!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "O'chirib tashlandi!",
-            text: "Ishchi o'chirib tashlandi.",
-            icon: "success",
-          });
-          Axios.delete(`/team/delete/${id}`);
-          mutate((state) => state.data.filter((team) => team._id !== id));
-        }
+        confirmButtonText: t("questions.answer"),
       });
+
+      if (result.isConfirmed) {
+        await Axios.delete(`/team/delete/${id}`);
+        Swal.fire({
+          title: t("questions.success"),
+          icon: "success",
+        });
+        mutate((state) => state.data.filter((team) => team._id !== id));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -73,16 +71,22 @@ export const Team = () => {
           ) : data && data.data && data.data.length > 0 ? (
             <div className="pt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
               {data.data.map((item, index) => (
-                <div key={index}>
+                <div
+                  key={index}
+                  className="bg-slate-100 shadow-lg rounded-lg overflow-hidden"
+                >
                   <figure className="w-full">
                     <img
-                      className="w-full rounded-full bg-slate-100"
+                      className="w-full h-[300px] bg-slate-100 object-cover"
                       src={item.image}
-                      alt={item.job}
+                      alt={item.experience}
                     />
                   </figure>
-                  <div className="p-4 flex flex-col gap-4 items-center">
+                  <div className="p-4 space-y-2">
                     <h1 className="font-bold">{item.name}</h1>
+                    <h1 className="font-normal text-gray-700">
+                      {item.experience}
+                    </h1>
                     {isAuth ? (
                       <div className="flex justify-end gap-2">
                         <button
