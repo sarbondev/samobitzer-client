@@ -29,7 +29,7 @@ export const ServiceModule = () => {
 
       if (result.isConfirmed) {
         await Axios.delete(`/services/delete/${id}`);
-        setServices(services.filter((service) => service._id !== id));
+        mutate((state) => state.data.filter((service) => service._id !== id));
         Swal.fire({
           title: t("questions.success"),
           icon: "success",
@@ -43,6 +43,8 @@ export const ServiceModule = () => {
       });
     }
   };
+
+  document.body.style.overflowY = isModalActive ? "hidden" : "auto";
 
   return (
     <>

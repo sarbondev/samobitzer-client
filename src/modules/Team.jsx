@@ -35,13 +35,16 @@ export const Team = () => {
             icon: "success",
           });
           Axios.delete(`/team/delete/${id}`);
-          mutate((state) => state.data.filter((member) => member._id !== id));
+          mutate((state) => state.data.filter((team) => team._id !== id));
         }
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+  document.body.style.overflowY = isModalActive ? "hidden" : "auto";
+
   return (
     <>
       <section className="px-4 py-20">
@@ -52,7 +55,7 @@ export const Team = () => {
           {isAuth ? (
             <button
               onClick={() => setIsModalActive(true)}
-              className="bg-red-700 text-white py-2 px-5 rounded-md"
+              className="bg-red-700 text-white font-semibold text-[12px] md:text-sm py-2 px-4 rounded-md"
             >
               {t("headings.ourteam.add")}
             </button>
@@ -61,8 +64,14 @@ export const Team = () => {
           )}
           {isLoading ? (
             <Pending />
+          ) : error ? (
+            <div className="mt-3 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
+              <h1 className="text-red-800 font-bold text-3xl">
+                Error loading data
+              </h1>
+            </div>
           ) : data && data.data && data.data.length > 0 ? (
-            <div className="pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+            <div className="pt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
               {data.data.map((item, index) => (
                 <div key={index}>
                   <figure className="w-full">
@@ -97,7 +106,7 @@ export const Team = () => {
               ))}
             </div>
           ) : (
-            <div className="mt-10 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
+            <div className="mt-5 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
               <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
             </div>
           )}

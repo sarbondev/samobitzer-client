@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { X } from "@phosphor-icons/react";
-import axios from "axios";
+import { Axios } from "../middlewares/Axios";
 
 export default function AddServiceModal({ setIsModalActive, mutate }) {
   const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ export default function AddServiceModal({ setIsModalActive, mutate }) {
     const newErrors = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = "Название блога обязательно";
+      newErrors.title = "Название сервиса обязательно";
       isValid = false;
     }
 
@@ -79,16 +79,9 @@ export default function AddServiceModal({ setIsModalActive, mutate }) {
       formDataToSend.append("description", formData.description);
       formDataToSend.append(`image`, formData.image);
 
-      await axios.post(
-        "http://localhost:5000/api/services/create",
-        formDataToSend,
-        {
-          headers: {
-            Authorization: JSON.parse(localStorage.getItem("samotoken")),
-          },
-        }
-      );
-      alert("Проект успешно добавлен!");
+      await Axios.post("/services/create", formDataToSend);
+
+      alert("Сервис успешно добавлен!");
       setIsModalActive(false);
       mutate();
     } catch (error) {
@@ -114,10 +107,10 @@ export default function AddServiceModal({ setIsModalActive, mutate }) {
         onSubmit={handleSubmit}
         className="h-full w-full md:max-w-lg flex flex-col gap-6 p-6 bg-white overflow-y-auto"
       >
-        <h1 className="text-center text-xl font-bold">Добавить новый блог</h1>
+        <h1 className="text-center text-xl font-bold">Добавить новый сервис</h1>
         <label className="flex flex-col gap-2 text-[14px]">
           <p>
-            Введите название блога<span className="text-red-600">*</span>
+            Введите название сервиса<span className="text-red-600">*</span>
           </p>
           <input
             type="text"
@@ -202,7 +195,7 @@ export default function AddServiceModal({ setIsModalActive, mutate }) {
           )}
         </div>
 
-        <div className="flex justify-end gap-4 mt-auto">
+        <div className="flex justify-end gap-4">
           <button
             type="button"
             onClick={() => setIsModalActive(false)}

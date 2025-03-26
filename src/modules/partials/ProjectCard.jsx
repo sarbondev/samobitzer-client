@@ -23,7 +23,7 @@ export const ProjectCard = ({ item, mutate }) => {
 
       if (result.isConfirmed) {
         await Axios.delete(`/projects/delete/${id}`);
-        mutate((state) => state.data.filter((prod) => prod._id !== id));
+        mutate((state) => state.data.filter((project) => project._id !== id));
         Swal.fire({
           title: t("questions.success"),
           icon: "success",

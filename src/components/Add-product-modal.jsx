@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { X } from "@phosphor-icons/react";
-import axios from "axios";
+import { Axios } from "../middlewares/Axios";
 
 export default function AddProductModal({ setIsModalActive, mutate }) {
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
     const newErrors = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = "Название блога обязательно";
+      newErrors.title = "Название проекта обязательно";
       isValid = false;
     }
 
@@ -91,15 +91,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
         formDataToSend.append(`images`, image);
       });
 
-      await axios.post(
-        "http://localhost:5000/api/projects/create",
-        formDataToSend,
-        {
-          headers: {
-            Authorization: JSON.parse(localStorage.getItem("samotoken")),
-          },
-        }
-      );
+      await Axios.post("/projects/create", formDataToSend);
       alert("Проект успешно добавлен!");
       setIsModalActive(false);
       mutate();
@@ -132,10 +124,10 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
         onSubmit={handleSubmit}
         className="h-full w-full md:max-w-lg flex flex-col gap-6 p-6 bg-white overflow-y-auto"
       >
-        <h1 className="text-center text-xl font-bold">Добавить новый блог</h1>
+        <h1 className="text-center text-xl font-bold">Добавить новый проект</h1>
         <label className="flex flex-col gap-2 text-[14px]">
           <p>
-            Введите название блога<span className="text-red-600">*</span>
+            Введите название проекта<span className="text-red-600">*</span>
           </p>
           <input
             type="text"
@@ -181,6 +173,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
             value={formData.category}
             onChange={handleInputChange}
           >
+            <option value="unknown">unknown</option>
             <option value="vrfsystem">vrfsystem</option>
             <option value="camera">camera</option>
             <option value="stellaj">stellaj</option>
@@ -250,7 +243,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
           )}
         </div>
 
-        <div className="flex justify-end gap-4 mt-auto">
+        <div className="flex justify-end gap-4">
           <button
             type="button"
             onClick={() => setIsModalActive(false)}

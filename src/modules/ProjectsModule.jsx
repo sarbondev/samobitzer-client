@@ -106,20 +106,16 @@ export const ProjectsModule = () => {
               <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
             </div>
           )}
-          {data &&
-            data.data &&
-            data.total &&
-            data.data.length > 0 &&
-            data.total > data.data.length && (
-              <div className="flex justify-center mt-5">
-                <button
-                  onClick={handleLoadMore}
-                  className="bg-[#5D75A5] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#4A5F88] transition-all"
-                >
-                  Ko'proq ko'rish
-                </button>
-              </div>
-            )}
+          {data && data.data && (
+            <div className="flex justify-center mt-5">
+              <button
+                onClick={handleLoadMore}
+                className="bg-[#851b1b] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#b22929] transition-all"
+              >
+                Ko'proq ko'rish
+              </button>
+            </div>
+          )}
         </div>
       </section>
       {isModalActive && (
