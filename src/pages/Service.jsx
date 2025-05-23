@@ -1,4 +1,3 @@
-import React from "react";
 import { ServiceModule } from "../modules/ServiceModule";
 import { useTranslation } from "react-i18next";
 

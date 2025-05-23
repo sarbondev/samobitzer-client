@@ -106,8 +106,11 @@ const ServiceCard = ({ item, deleteService, isAuth, t }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
       <div className="relative">
         <img
-          className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
-          src={item.image || "/placeholder.svg"}
+          className="w-full h-[300px] object-cover transition-all duration-300 hover:scale-105"
+          src={
+            item.image ||
+            "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg"
+          }
           alt={item.title}
         />
         <div className="absolute top-1 right-1 bg-green-600 text-white py-1 px-2 text-[10px] font-semibold rounded-lg">
@@ -138,13 +141,9 @@ const ServiceCard = ({ item, deleteService, isAuth, t }) => {
             </button>
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-10">
-                <Link
-                  to={`/edit-service/${item._id}`}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <button className="block w-full text-left px-4 py-2 text-sm text-blue-600 bg-gray-50 hover:bg-gray-100">
                   {t("actions.edit")}
-                </Link>
+                </button>
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -159,7 +158,7 @@ const ServiceCard = ({ item, deleteService, isAuth, t }) => {
           </div>
         )}
         <Link
-          to={`/service/${item._id}`}
+          to={`/services/${item._id}`}
           className="block text-xl font-semibold text-gray-800 hover:text-red-700 transition-colors duration-300 mb-2"
         >
           {item.title}
@@ -171,7 +170,7 @@ const ServiceCard = ({ item, deleteService, isAuth, t }) => {
         </p>
         <div className="flex justify-between items-center">
           <Link
-            to={`/service/${item._id}`}
+            to={`/services/${item._id}`}
             className="text-red-700 hover:text-red-900 font-medium flex items-center gap-1 transition-colors duration-300"
           >
             {t("headings.aboutus.b")}

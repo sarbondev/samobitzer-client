@@ -4,7 +4,6 @@ import {
   TelegramLogo,
   PhoneCall,
 } from "@phosphor-icons/react";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -82,7 +81,9 @@ export const Footer = () => {
         </ul>
       </div>
       <div className="container py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <h1 className="text-white text-[13px]">{t("rights.title")}</h1>
+        <h1 className="text-white text-[13px]">
+          {t("rights.title")} {new Date().getFullYear()}
+        </h1>
         <h1 className="text-white text-[13px] md:text-end">
           {t("rights.made")}
         </h1>

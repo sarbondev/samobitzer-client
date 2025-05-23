@@ -11,6 +11,7 @@ import { ProjectsDetails } from "./pages/ProjectsDetail";
 import { useDispatch } from "react-redux";
 import { setError, setPending, setUser } from "./toolkit/UserSlicer";
 import { Axios } from "./middlewares/Axios";
+import ServiceDetail from "./pages/ServiceDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,8 +59,12 @@ function App() {
           element: <Projects />,
         },
         {
-          path: "service",
+          path: "services",
           element: <Service />,
+        },
+        {
+          path: "services/:id",
+          element: <ServiceDetail />,
         },
         {
           path: "projects/:id",

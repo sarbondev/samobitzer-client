@@ -25,7 +25,7 @@ export const Hero = () => {
 
         <div className="flex flex-col gap-4 sm:flex-row">
           <button className="bg-gray-800 text-white hover:bg-gray-700 p-2">
-            <Link to="/quote">Посметреть наши работы</Link>
+            <Link to="/projects">Посметреть наши работы</Link>
           </button>
         </div>
       </div>

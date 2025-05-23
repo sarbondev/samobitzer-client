@@ -22,7 +22,7 @@ export const Header = () => {
       title: "projects",
     },
     {
-      to: "/service",
+      to: "/services",
       title: "services",
     },
   ];

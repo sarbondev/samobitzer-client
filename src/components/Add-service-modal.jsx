@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { X } from "@phosphor-icons/react";
 import { Axios } from "../middlewares/Axios";
 

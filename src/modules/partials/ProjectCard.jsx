@@ -43,7 +43,10 @@ export const ProjectCard = ({ item, mutate }) => {
       <div className="relative">
         <Link to={`/projects/${item._id}`} className="block">
           <img
-            src={item.images[0] || "/placeholder.svg"}
+            src={
+              item.images[0] ||
+              "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg"
+            }
             className="w-full h-48 object-cover transition-all duration-300 hover:scale-105"
             alt={item.title}
           />
