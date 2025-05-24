@@ -1,7 +1,18 @@
 import { useTranslation } from "react-i18next";
 
 export const PartnersModule = () => {
-  const partners = [];
+  const partners = [
+    "./bananza.png",
+    "./ecobozor.png",
+    "./lactel.png",
+    "./makro.png",
+    "./mumtoz.png",
+    "./nestle.png",
+    "./rashmilk.png",
+    "./rozmetov.png",
+    "./sherin.png",
+    "./uzbegimqora.png",
+  ];
 
   const { t } = useTranslation();
 
