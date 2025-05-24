@@ -86,8 +86,8 @@ export const ServiceModule = () => {
               ))}
             </div>
           ) : (
-            <div className="mt-4 rounded-xl h-[30vh] flex items-center justify-center bg-white shadow-md">
-              <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
+            <div className="flex h-[40vh] items-center justify-center">
+              <h1>Пока что нет сервисов</h1>
             </div>
           )}
         </div>

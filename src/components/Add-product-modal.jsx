@@ -162,7 +162,7 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
         </label>
         <label className="flex flex-col gap-2 text-[14px]">
           <p>
-            Введите описание
+            Введите категорию
             <span className="text-red-600">*</span>
           </p>
           <select
@@ -173,12 +173,12 @@ export default function AddProductModal({ setIsModalActive, mutate }) {
             value={formData.category}
             onChange={handleInputChange}
           >
-            <option value="unknown">unknown</option>
-            <option value="vrfsystem">vrfsystem</option>
-            <option value="camera">camera</option>
-            <option value="stellaj">stellaj</option>
-            <option value="sandwich">sandwich</option>
-            <option value="other">other</option>
+            <option value="unknown">Выбрать категорию</option>
+            <option value="chiller">Чиллер</option>
+            <option value="camera">Камера холодильняя</option>
+            <option value="stellaj">Стеллажи</option>
+            <option value="sandwich">Сендвич панели</option>
+            <option value="other">Другие</option>
           </select>
           {errors.category && (
             <p className="text-red-600 text-sm">{errors.category}</p>

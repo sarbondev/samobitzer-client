@@ -10,19 +10,23 @@ export const PartnersModule = () => {
       <h1 className="pb-20 text-center text-3xl md:text-5xl text-red-800 font-bold">
         {t("partners")}
       </h1>
-      <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
-        {partners.length > 0
-          ? partners.map((item, index) => (
-              <img
-                data-aos="fade-up"
-                key={index}
-                src={item}
-                alt=""
-                className="object-cover p-[25px] md:p-[50px]"
-              />
-            ))
-          : "no data"}
-      </div>
+      {partners.length > 0 ? (
+        <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
+          {partners.map((item, index) => (
+            <img
+              data-aos="fade-up"
+              key={index}
+              src={item}
+              alt=""
+              className="object-cover p-[25px] md:p-[50px]"
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex h-[40vh] items-center justify-center">
+          <h1>Пока что нет партнеров</h1>
+        </div>
+      )}
     </section>
   );
 };

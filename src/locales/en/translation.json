@@ -64,7 +64,7 @@
   },
   "filters": {
     "all": "All",
-    "vrfsystem": "VRF system",
+    "chiller": "VRF system",
     "camera": "showcase refrigerator",
     "stellaj": "showcase refrigerator and rack",
     "sandwich": "Sandwich Panels",

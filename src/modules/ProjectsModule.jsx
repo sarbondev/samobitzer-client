@@ -65,7 +65,7 @@ export const ProjectsModule = () => {
                 {t("headings.projects.add")}
               </button>
             )}
-            {["", "vrfsystem", "camera", "stellaj", "sandwich", "other"].map(
+            {["", "chiller", "camera", "stellaj", "sandwich", "other"].map(
               (category, index) => (
                 <button
                   key={index}
@@ -97,13 +97,13 @@ export const ProjectsModule = () => {
                 ))}
               </div>
             ) : (
-              <div className="mt-3 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
-                <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
+              <div className="flex h-[40vh] items-center justify-center">
+                <h1>Пока что нет проектов</h1>
               </div>
             )
           ) : (
-            <div className="mt-3 rounded-l-xl h-[30vh] flex items-center justify-center bg-slate-100">
-              <h1 className="text-red-800 font-bold text-3xl">NO DATA</h1>
+            <div className="flex h-[40vh] items-center justify-center">
+              <h1>Пока что нет проектов</h1>
             </div>
           )}
           {data && data.data && (
